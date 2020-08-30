@@ -5,7 +5,6 @@ import Posts from "../Posts/Posts";
 export default function Home() {
   return (
     <View style={[styles.container, styles.centerFlex]}>
-      <Text>HOME</Text>
       <Posts></Posts>
     </View>
   );

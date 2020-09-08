@@ -39,7 +39,9 @@ const Post = ({ id, imgUrl, price, currency, title }) => {
           <Text style={styles.price_text}>{priceAndCurrency}</Text>
         </View>
         <View style={styles.title}>
-          <Text style={styles.title_text}>{title}</Text>
+          <Text numberOfLines={2} style={styles.title_text}>
+            {title}
+          </Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -94,9 +96,10 @@ const styles = StyleSheet.create({
 
   title: {
     height: "15%",
+    width: "100%",
   },
   title_text: {
-    width: 174,
+    width: 154,
     paddingVertical: 6,
     paddingLeft: 6,
     // #trash needs centerFlex+fs // isNorm ? rmComment

@@ -1,4 +1,4 @@
-// RESEARCH make "inet to 'my;
+// RESEARCH make 'internet to 'my;
 import React from "react";
 import { StyleSheet } from "react-native";
 // nav
@@ -8,54 +8,66 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 // stack
 import { createStackNavigator } from "@react-navigation/stack";
 // screens
-import Home from "../screens/Home/Home";
-import AddPost from "../screens/AddPost/AddPost";
-// import Profile from "../screens/Profile/Profile";
+import Home from "../Screens/HomeScreen/Home";
+import Favorites from "../Screens/FavoritesScreen/Favorites";
+import AddPost from "../Screens/AddPostScreen/AddPost";
+import Messages from "../Screens/MessagesScreen/Messages";
+import Profile from "../Screens/ProfileScreen/Profile";
 // comps
-import Login from "../Authentication/Login/Login";
-import Register from "../Authentication/Register/Register";
-import Profile from "../screens/Profile/Profile";
+import Login from "../Screens/ProfileScreen/Authentication/Login/Login";
+import Register from "../Screens/ProfileScreen/Authentication/Register/Register";
+import ProfilePage from "../Screens/ProfileScreen/Account/Account";
+import ProfilePosts from "../Screens/ProfileScreen/ProfilePosts/ProfilePosts";
+import ProfileSettings from "../Screens/ProfileScreen/ProfileSettings/ProfileSettings";
+import ProfileMenu from "../Screens/ProfileScreen/ProfileMenu/ProfileMenu";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function ProfileStack() {
+const ProfileStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator /*headerMode="true"*/ initialRouteName="">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="Profile" component={Profile} />
+
+      {/* <Stack.Screen name="Profile" component={Profile} /> */}
+      <Stack.Screen name="Account" component={ProfilePage} />
+      <Stack.Screen name="My Posts" component={ProfilePosts} />
+      <Stack.Screen name="Settings" component={ProfileSettings} />
+      <Stack.Screen name="ProfileMenu" component={ProfileMenu} />
     </Stack.Navigator>
   );
-}
+};
 
-export default function BottomTabNavigation() {
-  const color = "green";
-
+// #task color and size nuance in tabBarIcon
+export default function Navigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        style={[styles.container]}
-        initialRouteName="Home" //
+        style={styles.container}
+        initialRouteName="Home"
         activeColor="blue"
         inactiveColor="grey"
         barStyle={{ backgroundColor: "#ebecec" }}
         labeled={false}
       >
         <Tab.Screen
-          name="HomeName"
+          name="Home"
           component={Home}
           options={{
-            tabBarLabel: "",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
-            ),
+            tabBarIcon: (
+              { color, size } //
+            ) => <MaterialCommunityIcons name="home" color={color} size={26} />,
+          }}
+          options={{
+            tabBarIcon: (
+              { color, size } //
+            ) => <MaterialCommunityIcons name="home" color={color} size={26} />,
           }}
         />
-        {/* opt */}
         <Tab.Screen
-          name="opt1"
-          component={AddPost}
+          name="Favorites"
+          component={Favorites}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
@@ -68,7 +80,7 @@ export default function BottomTabNavigation() {
           }}
         />
         <Tab.Screen
-          name="Notifications"
+          name="AddPost"
           component={AddPost}
           options={{
             tabBarLabel: "AddPost",
@@ -81,10 +93,9 @@ export default function BottomTabNavigation() {
             ),
           }}
         />
-        {/* opt */}
         <Tab.Screen
-          name="opt2"
-          component={AddPost}
+          name="Messages"
+          component={Messages}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
@@ -103,7 +114,6 @@ export default function BottomTabNavigation() {
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="account" color={color} size={26} />
             ),
-            // tabBarOptions: { showLabel: false }
           }}
         />
       </Tab.Navigator>
@@ -113,12 +123,6 @@ export default function BottomTabNavigation() {
 
 // PROVIDE HIGH ACCURACY (CSS)
 const styles = StyleSheet.create({
-  centerFlex: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
   // given to Tab.Nav i.o Nav.Cont //
   container: {
     width: "100%",

@@ -37,7 +37,10 @@ class Home extends Component {
         {this.state.isLoading ? (
           <ActivityIndicator size="small" color="#0000ff" />
         ) : (
-          <Posts data={this.state.postsData}></Posts>
+          <Posts
+            data={this.state.postsData}
+            navigation={this.props.navigation}
+          ></Posts>
         )}
       </View>
     );

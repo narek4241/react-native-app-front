@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import Post from "./Post/Post";
 
 // #task scrollview to flatlist (for scroll load nuance, has special syntax)
-const Posts = ({ data }) => {
+const Posts = ({ data, navigation }) => {
   const posts = data.map((prod) => {
     return (
       <Post
@@ -14,6 +14,7 @@ const Posts = ({ data }) => {
         price={prod.price}
         title={prod.title}
         currency={prod.currency}
+        navigation={navigation}
       ></Post>
     );
   });

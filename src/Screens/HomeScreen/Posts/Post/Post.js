@@ -2,21 +2,25 @@ import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 // use 'imp' tricky shorthand
 
-const Post = ({ id, imgUrl, price, currency, title }) => {
+const Post = ({ id, imgUrl, price, currency, title, navigation }) => {
   let priceAndCurrency;
   if (currency == "usd") {
     priceAndCurrency = "$" + price;
   } else if (currency == "amd") {
     priceAndCurrency = price + " ֏";
   } else if (currency == "rub") {
-    priceAndCurrency = price + " руб.";
+    priceAndCurrency = props.price + " руб.";
   } else if (currency == "eur") {
     priceAndCurrency = "€" + price;
   }
 
   return (
     <View style={styles.post}>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("SinglePage");
+        }}
+      >
         <View style={[styles.imgView, styles.centerFlex]}>
           {imgUrl ? (
             <Image

@@ -45,16 +45,12 @@ class Login extends Component {
         }
       );
       const data = await fetchLoginData.json();
-      console.log(data);
 
       if (data.error) {
         alert(`${data.error}`);
       } else {
-        this.props.navigation.navigate("ProfileMenu");
-        const setToken = await AsyncStorage.setItem(
-          "auth-token",
-          data.auth_token
-        );
+        await AsyncStorage.setItem("auth-token", data.auth_token);
+        this.props.navigation.replace("Profile");
       }
     } catch (error) {
       console.log(error);
@@ -133,10 +129,6 @@ class Login extends Component {
                 style={[styles.loginInputs_submit, styles.centerFlex]}
                 onPress={async () => {
                   props.handleSubmit();
-                  // ok?rm
-                  (await AsyncStorage.getItem("auth-token"))
-                    ? this.props.navigation.navigate("ProfileMenu")
-                    : null;
                 }}
               >
                 <Text style={styles.loginInputs_submit_text}>login</Text>

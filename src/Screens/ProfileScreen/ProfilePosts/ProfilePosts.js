@@ -1,6 +1,11 @@
 // #task (like in ProfileMenu) turn 'class component back to 'function component (for mastering)
 import React, { Component } from "react";
-import { StyleSheet, View, AsyncStorage } from "react-native";
+import {
+  StyleSheet,
+  View,
+  AsyncStorage,
+  ActivityIndicator,
+} from "react-native";
 import Posts from "../../HomeScreen/Posts/Posts";
 
 class ProfilePosts extends Component {
@@ -9,6 +14,7 @@ class ProfilePosts extends Component {
   }
   state = {
     profilePostsData: [],
+    isLoading: true,
   };
 
   fetchProfilePosts = async () => {
@@ -27,6 +33,7 @@ class ProfilePosts extends Component {
 
     this.setState({
       profilePostsData: data,
+      isLoading: false,
     });
   };
 
@@ -36,8 +43,15 @@ class ProfilePosts extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Posts data={this.state.profilePostsData}></Posts>
+      <View style={[styles.container, styles.centerFlex]}>
+        {this.state.isLoading ? (
+          <ActivityIndicator size="small" color="#0000ff" />
+        ) : (
+          <Posts
+            data={this.state.profilePostsData}
+            navigation={this.props.navigation}
+          ></Posts>
+        )}
       </View>
     );
   }

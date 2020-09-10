@@ -19,14 +19,29 @@ import Register from "../Screens/ProfileScreen/Authentication/Register/Register"
 import ProfilePage from "../Screens/ProfileScreen/Account/Account";
 import ProfilePosts from "../Screens/ProfileScreen/ProfilePosts/ProfilePosts";
 import ProfileSettings from "../Screens/ProfileScreen/ProfileSettings/ProfileSettings";
-import ProfileMenu from "../Screens/ProfileScreen/ProfileMenu/ProfileMenu";
+// import ProfileMenu from "../Screens/ProfileScreen/ProfileMenu/ProfileMenu";
+// comps2
+import SinglePage from "../Screens/HomeScreen/Posts/SinglePage/SinglePage";
+import Post from "../Screens/HomeScreen/Posts/Post/Post";
+import Posts from "../Screens/HomeScreen/Posts/Posts";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
+const HomeStack = () => {
+  return (
+    <Stack.Navigator /*headerMode="none"*/ initialRouteName="">
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="SinglePage" component={SinglePage} />
+      {/* secondary (uses {navigation} object)*/}
+      {/* <Stack.Screen name="Posts" component={Posts} /> */}
+    </Stack.Navigator>
+  );
+};
+
 const ProfileStack = () => {
   return (
-    <Stack.Navigator /*headerMode="true"*/ initialRouteName="">
+    <Stack.Navigator /*headerMode="true"*/ initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
 
@@ -34,7 +49,9 @@ const ProfileStack = () => {
       <Stack.Screen name="Account" component={ProfilePage} />
       <Stack.Screen name="My Posts" component={ProfilePosts} />
       <Stack.Screen name="Settings" component={ProfileSettings} />
-      <Stack.Screen name="ProfileMenu" component={ProfileMenu} />
+      <Stack.Screen name="Profile" component={Profile} />
+      {/* ok?rm */}
+      <Stack.Screen name="SinglePage" component={SinglePage} />
     </Stack.Navigator>
   );
 };
@@ -53,7 +70,7 @@ export default function Navigation() {
       >
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={HomeStack}
           options={{
             tabBarIcon: (
               { color, size } //

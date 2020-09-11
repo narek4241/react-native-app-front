@@ -1,9 +1,16 @@
 // #task change styles.NAMES (source: singlePage) (PROVIDE)
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, Text, ActivityIndicator, AsyncStorage } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  ActivityIndicator,
+  AsyncStorage,
+} from "react-native";
 import Posts from "../../HomeScreen/Posts/Posts";
 
-const Account = () => {
+const Account = (props) => {
   const [accountPosts, setAccountPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -29,7 +36,7 @@ const Account = () => {
   });
 
   return (
-    <View>
+    <View style={styles.account_container}>
       <View style={styles.post_owner}>
         <View style={[styles.post_owner_avatar, styles.centerFlex]}>
           <Image
@@ -52,7 +59,7 @@ const Account = () => {
         {isLoading ? (
           <ActivityIndicator size="small" color="#0000ff" />
         ) : (
-          <Posts data={accountPosts}></Posts>
+          <Posts data={accountPosts} navigation={props.navigation}></Posts>
         )}
       </View>
     </View>
@@ -66,6 +73,11 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  account_container: {
+    width: "100%",
+    height: "100%", //
   },
 
   post_owner: {

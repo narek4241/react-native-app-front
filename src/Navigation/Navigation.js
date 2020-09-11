@@ -1,3 +1,4 @@
+// #check_task ok?rm <npm i 'react-navigation'> uninstall
 // RESEARCH make 'internet to 'my;
 import React from "react";
 import { StyleSheet } from "react-native";
@@ -20,6 +21,8 @@ import ProfilePage from "../Screens/ProfileScreen/Account/Account";
 import ProfilePosts from "../Screens/ProfileScreen/ProfilePosts/ProfilePosts";
 import ProfileSettings from "../Screens/ProfileScreen/ProfileSettings/ProfileSettings";
 import SinglePage from "../Screens/HomeScreen/Posts/SinglePage/SinglePage";
+import Posts from "../Screens/HomeScreen/Posts/Posts";
+import Search from "../Screens/HomeScreen/Search/Search";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -28,9 +31,10 @@ const HomeStack = () => {
   return (
     <Stack.Navigator /*headerMode="none"*/ initialRouteName="">
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="SinglePage" component={SinglePage} />
-      {/* secondary (uses {navigation} object)*/}
-      {/* <Stack.Screen name="Posts" component={Posts} /> */}
+      <Stack.Screen name="Single Page" component={SinglePage} />
+      {/* secondary (uses {navigation} object) */}
+      <Stack.Screen name="Posts" component={Posts} />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 };

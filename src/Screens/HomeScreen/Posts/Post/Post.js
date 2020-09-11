@@ -18,7 +18,9 @@ const Post = ({ id, imgUrl, price, currency, title, navigation }) => {
     <View style={styles.post}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("SinglePage");
+          navigation.navigate("Single Page", {
+            postId: id,
+          });
         }}
       >
         <View style={[styles.imgView, styles.centerFlex]}>
@@ -65,9 +67,11 @@ const styles = StyleSheet.create({
   },
 
   post: {
-    minWidth: 175,
+    minWidth: 150,
+    // minWidth: '40%',
     // width: 200, // tablet?this
-    width: "49%", // default?this
+    // width: "49%", // old default?this
+    width: "50%", // default?this
     height: 275,
     paddingHorizontal: 10,
     overflow: "hidden",
@@ -79,7 +83,9 @@ const styles = StyleSheet.create({
     // resizeMode: "contain", // ok?rm
   },
   imgView_img: {
-    width: 174,
+    // width: 174,
+    // #task needs responsive here (for better look)
+    width: 170,
     height: 165,
     borderRadius: 6,
     resizeMode: "cover",

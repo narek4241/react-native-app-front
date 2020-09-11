@@ -1,47 +1,16 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
-import Posts from "./Posts/Posts";
+import { StyleSheet, View } from "react-native";
+import Search from "./Search/Search";
 
 class Home extends Component {
   constructor(props) {
     super(props);
   }
-  state = {
-    postsData: [],
-    isLoading: true,
-  };
 
-  fetchPosts = async () => {
-    try {
-      const fetchPostsData = await fetch(
-        "http://skelet-rest-api.herokuapp.com/posts"
-      );
-
-      const data = await fetchPostsData.json();
-
-      this.setState({
-        postsData: data,
-        isLoading: false,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  componentDidMount() {
-    this.fetchPosts();
-  }
   render() {
     return (
       <View style={[styles.container, styles.centerFlex]}>
-        {this.state.isLoading ? (
-          <ActivityIndicator size="small" color="#0000ff" />
-        ) : (
-          <Posts
-            data={this.state.postsData}
-            navigation={this.props.navigation}
-          ></Posts>
-        )}
+        <Search navigation={this.props.navigation}></Search>
       </View>
     );
   }

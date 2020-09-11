@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 import Post from "./Post/Post";
 
 // #task scrollview to flatlist (for scroll load nuance, has special syntax)
@@ -21,7 +21,10 @@ const Posts = ({ data, navigation }) => {
 
   return (
     <ScrollView>
-      <View style={[styles.posts, styles.centerFlex]}>{posts}</View>
+      <View style={[styles.centerFlex, styles.posts]}>
+        {/* {posts ? posts : <Text>No Posts</Text>} */}
+        {posts}
+      </View>
     </ScrollView>
   );
 };
@@ -40,6 +43,7 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
-    alignItems: "baseline",
+    // alignItems: "baseline", // ok?rm
+    // justifyContent: "space-around", // ok?rm
   },
 });

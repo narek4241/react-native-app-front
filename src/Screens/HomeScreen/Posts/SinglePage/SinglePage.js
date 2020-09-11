@@ -14,15 +14,17 @@ class SinglePage extends Component {
     super(props);
   }
   state = {
+    // got from Post.js (when navigating to here)
+    postId: this.props.route.params.postId,
     singlePostData: {},
     recommendedPostsData: [],
     isLoading: true,
     isLoadingRecPosts: true,
   };
 
-  fetchSinglePage = async () => {
+  fetchSinglePage = async (postId) => {
     const fetchSinglePageData = await fetch(
-      "https://skelet-rest-api.herokuapp.com/posts/post/5f230f9495c7511a99882904",
+      `https://skelet-rest-api.herokuapp.com/posts/post/${postId}`,
       {
         method: "GET",
         headers: {
@@ -54,8 +56,20 @@ class SinglePage extends Component {
     });
   };
 
+  arrangePriceAndCurrency = (price, currency) => {
+    if (currency == "usd") {
+      return "$" + price;
+    } else if (currency == "amd") {
+      return price + " ֏";
+    } else if (currency == "rub") {
+      return price + " руб.";
+    } else if (currency == "eur") {
+      return "€ " + price;
+    }
+  };
+
   componentDidMount() {
-    this.fetchSinglePage();
+    this.fetchSinglePage(this.state.postId);
     this.fetchRecommendedPosts();
   }
 
@@ -91,28 +105,29 @@ class SinglePage extends Component {
 
               <View style={styles.post_header_price}>
                 <Text style={styles.post_header_price_text}>
-                  {this.state.singlePostData.price}
-                  {this.state.singlePostData.currency}
+                  {this.arrangePriceAndCurrency(
+                    this.state.singlePostData.price,
+                    this.state.singlePostData.currency
+                  )}
                 </Text>
               </View>
             </View>
 
             <View style={styles.post_location}>
-              <View style={styles.post_location_heading}>
-                <Text style={styles.post_location_heading_text}>
-                  {this.state.singlePostData.region}
-                </Text>
-              </View>
-
-              <View style={[styles.post_location_other, styles.centerFlex]}>
+              <View style={[styles.centerFlex, styles.post_location_other]}>
                 <View
                   style={[styles.post_location_other_button, styles.centerFlex]}
                 >
                   <Image
                     style={styles.post_location_other_button_image}
-                    source={require("../../../../../assets/Profile/next.png")}
+                    source={require("../../../../../assets/location.png")}
                   />
                 </View>
+              </View>
+              <View style={styles.post_location_heading}>
+                <Text style={styles.post_location_heading_text}>
+                  {this.state.singlePostData.region}
+                </Text>
               </View>
             </View>
 
@@ -173,7 +188,10 @@ class SinglePage extends Component {
                 {this.state.isLoadingRecPosts ? (
                   <ActivityIndicator size="small" color="#0000ff" />
                 ) : (
-                  <Posts data={this.state.recommendedPostsData}></Posts>
+                  <Posts
+                    data={this.state.recommendedPostsData}
+                    navigation={this.props.navigation}
+                  ></Posts>
                 )}
               </View>
             </View>
@@ -210,7 +228,7 @@ const styles = StyleSheet.create({
   post_images_image: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
 
   post_header: {
@@ -241,6 +259,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlignVertical: "center",
     color: "grey",
+    textTransform: "capitalize",
   },
   post_header_price: {
     flex: 3,
@@ -255,7 +274,6 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
   },
 
-  //
   post_location: {
     height: 50,
     display: "flex",
@@ -263,30 +281,30 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     backgroundColor: "#fff",
   },
+  post_location_other: {
+    width: "10%",
+    height: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  post_location_other_button: {
+    width: "75%",
+    height: "100%",
+  },
+  post_location_other_button_image: {
+    width: "100%",
+    height: "35%",
+    resizeMode: "contain",
+  },
   post_location_heading: {
-    width: "65%",
+    width: "90%",
     height: "100%",
   },
   post_location_heading_text: {
     flex: 1,
-    fontSize: 20,
-    marginLeft: "10%",
+    fontSize: 17,
+    marginLeft: "1%",
     textAlignVertical: "center",
-  },
-  post_location_other: {
-    width: "35%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end", //
-  },
-  post_location_other_button: {
-    width: "25%",
-    height: "100%",
-  },
-  post_location_other_button_image: {
-    width: "50%",
-    height: "25%",
   },
 
   post_properties: {

@@ -14,30 +14,26 @@ import * as Yup from "yup";
 const phoneRegExp = /^[+374]{4}[0-9]{8}/;
 
 const RegisterSchema = Yup.object({
-  firstname: Yup.string(),
-  // .required("Firstname is Required")
-  // .max(30, "Firstname max length is 30")
-  // .min(2, "Firstname min length is 2"),
-  lastname: Yup.string(),
-  // .min(2, "Lastname min length is 2"),
-  email: Yup.string(),
-  // .email("Must be a valid Email")
-  // .required("Email is Required")
-  // .max(30, "Email max length is 30"),
-  contact: Yup.string(),
-  // .required("contact Number is Required")
-  // .matches(phoneRegExp, "Must be a valid contact Number"),
-  password: Yup.string(),
-  // .required("Password is Required")
-  // .min(6, "Password must be at least 6 characters"),
-  passwordConf: Yup.string(),
-  // .oneOf(
-  //   [Yup.ref("password")],
-  //   "Passwords must match"
+  firstname: Yup.string()
+    .required("Firstname is Required")
+    .max(30, "Firstname max length is 30")
+    .min(2, "Firstname min length is 2"),
+  lastname: Yup.string().min(2, "Lastname min length is 2"),
+  email: Yup.string()
+    .email("Must be a valid Email")
+    .required("Email is Required")
+    .max(30, "Email max length is 30"),
+  contact: Yup.string()
+    .required("contact Number is Required")
+    .matches(phoneRegExp, "Must be a valid contact Number"),
+  password: Yup.string()
+    .required("Password is Required")
+    .min(6, "Password must be at least 6 characters"),
+  passwordConf: Yup.string().oneOf(
+    [Yup.ref("password")],
+    "Passwords must match"
+  ),
 });
-
-// #task0.5 CHECK in backend whether some addi  tional fields are 'required or not;
-// #task reset form works partly (resets form but it doesnt seen in forms)
 
 class Register extends Component {
   constructor(props) {
@@ -92,7 +88,7 @@ class Register extends Component {
           }}
         >
           {(props) => (
-            <View style={styles.registerInputs}>
+            <View style={[styles.registerInputs, styles.centerFlex]}>
               <TextInput
                 style={[
                   styles.registerInputs_input,
@@ -101,7 +97,7 @@ class Register extends Component {
                 onChangeText={props.handleChange("firstname")}
                 onBlur={props.handleBlur("firstname")}
                 values={props.values.firstname}
-                placeholder="Firstname" //
+                placeholder="Firstname"
               />
               {/* <Text>{props.errors.Firstname}</Text> */}
 
@@ -113,7 +109,7 @@ class Register extends Component {
                 onChangeText={props.handleChange("lastname")}
                 onBlur={props.handleBlur("lastname")}
                 values={props.values.lastname}
-                placeholder="Lastname" //
+                placeholder="Lastname"
               />
               {/* <Text>{props.errors.fullname}</Text> */}
 
@@ -125,7 +121,7 @@ class Register extends Component {
                 onChangeText={props.handleChange("contact")}
                 onBlur={props.handleBlur("contact")}
                 values={props.values.contact}
-                placeholder="Contact" //
+                placeholder="Contact"
               />
               {/* <Text>{props.errors.fullname}</Text> */}
 
@@ -137,7 +133,7 @@ class Register extends Component {
                 onChangeText={props.handleChange("email")}
                 onBlur={props.handleBlur("email")}
                 values={props.values.email}
-                placeholder="Email" //
+                placeholder="Email"
               />
               {/* <Text>{props.errors.email}</Text> */}
 
@@ -150,7 +146,7 @@ class Register extends Component {
                 onBlur={props.handleBlur("password")}
                 values={props.values.password}
                 secureTextEntry={true}
-                placeholder="Password" //
+                placeholder="Password"
               />
               {/* <Text>{props.errors.password}</Text> */}
 
@@ -163,7 +159,7 @@ class Register extends Component {
                 onBlur={props.handleBlur("confPassword")}
                 values={props.values.confPassword}
                 secureTextEntry={true}
-                placeholder="Confirm Password" //
+                placeholder="Confirm Password"
               />
               {/* <Text>{props.errors.confPassword}</Text> */}
 
@@ -318,13 +314,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
   container: {
     width: "100%",
     height: "100%",
     backgroundColor: "#fff",
-    display: "flex", //
+    display: "flex",
     alignItems: "center",
   },
+
   registerLogo: {
     width: "100%",
     height: "20%",
@@ -338,9 +336,6 @@ const styles = StyleSheet.create({
   registerInputs: {
     width: "100%",
     height: "70%",
-    display: "flex", //
-    alignItems: "center",
-    justifyContent: "center",
   },
   registerInputs_input: {
     width: "72.5%",
@@ -348,7 +343,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#ebecec",
     fontSize: 16,
     paddingLeft: "5%",
+    borderTopWidth: 0.35,
+    borderTopColor: "lightgrey",
   },
+
+  registerInputs_firstname: {
+    borderTopWidth: 0,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+  },
+  registerInputs_confPassword: {
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+  },
+
   registerInputs_submit: {
     backgroundColor: "blue",
     borderRadius: 10,

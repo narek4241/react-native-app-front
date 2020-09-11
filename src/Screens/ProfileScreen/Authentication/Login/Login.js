@@ -1,4 +1,4 @@
-// #task improve Login-to->profile nuance ,add Modals (error message), keyboardAvoiding nuance (1 lib installed,ok?rm)
+// #task add Modals (error message), keyboardAvoiding nuance (1 lib installed,ok?rm)
 import React, { Component } from "react";
 import {
   View,
@@ -14,14 +14,14 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 // import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string(),
-  //   .email("Must be a valid Email")
-  //   .required("Email is Required")
-  //   .max(30, "Email max length is 30"),
-  password: Yup.string(),
-  //   .required("Password is Required")
-  //   .min(6, "Password must be at least 6 characters"),
+const LoginValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Must be a valid Email")
+    .required("Email is Required")
+    .max(30, "Email max length is 30"),
+  password: Yup.string()
+    .required("Password is Required")
+    .min(6, "Password must be at least 6 characters"),
 });
 
 class Login extends Component {
@@ -91,20 +91,22 @@ class Login extends Component {
 
         <Formik
           initialValues={{ email: "", password: "" }}
-          validationSchema={LoginSchema}
-          onSubmit={(values, actions) => {
-            actions.resetForm({});
+          // validationSchema={LoginValidationSchema}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setSubmitting(true);
             this.fetchLogin(values);
+            // resetForm({}); // doesnt work properly
+            setSubmitting(false);
           }}
         >
           {(props) => (
-            <View style={[styles.loginInputs]}>
+            <View style={styles.loginInputs}>
               <TextInput
                 style={styles.loginInputs_email}
                 onChangeText={props.handleChange("email")}
                 onBlur={props.handleBlur("email")}
                 values={props.values.email}
-                placeholder="Email" //
+                placeholder="Email"
               />
               {/* {props.errors.email ? alert(props.errors.email) : null} */}
               {/* make errorMessages with MODAL */}
@@ -118,7 +120,7 @@ class Login extends Component {
                 onBlur={props.handleBlur("password")}
                 values={props.values.password}
                 secureTextEntry={true}
-                placeholder="Password" //
+                placeholder="Password"
               />
               {/* {props.errors.email ? alert(props.errors.password) : null} */}
               {/* <Text style={styles.loginInputs_password_error}>
@@ -127,9 +129,7 @@ class Login extends Component {
 
               <TouchableOpacity
                 style={[styles.loginInputs_submit, styles.centerFlex]}
-                onPress={async () => {
-                  props.handleSubmit();
-                }}
+                onPress={props.handleSubmit}
               >
                 <Text style={styles.loginInputs_submit_text}>login</Text>
               </TouchableOpacity>
@@ -223,6 +223,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ebecec",
     fontSize: 16,
     paddingLeft: "5%",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
   loginInputs_password: {
     width: "75%",
@@ -230,6 +232,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#ebecec",
     fontSize: 16,
     paddingLeft: "5%",
+    borderTopWidth: 0.35,
+    borderTopColor: "lightgrey",
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
   },
 
   loginInputs_submit: {

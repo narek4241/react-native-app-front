@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 const Favorites = () => (
   <View style={[styles.container, styles.centerFlex]}>
-    <Text>Favorites.js</Text>
+    <Text>Favorites (soon)</Text>
   </View>
 );
 

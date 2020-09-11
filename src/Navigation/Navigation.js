@@ -19,11 +19,7 @@ import Register from "../Screens/ProfileScreen/Authentication/Register/Register"
 import ProfilePage from "../Screens/ProfileScreen/Account/Account";
 import ProfilePosts from "../Screens/ProfileScreen/ProfilePosts/ProfilePosts";
 import ProfileSettings from "../Screens/ProfileScreen/ProfileSettings/ProfileSettings";
-// import ProfileMenu from "../Screens/ProfileScreen/ProfileMenu/ProfileMenu";
-// comps2
 import SinglePage from "../Screens/HomeScreen/Posts/SinglePage/SinglePage";
-import Post from "../Screens/HomeScreen/Posts/Post/Post";
-import Posts from "../Screens/HomeScreen/Posts/Posts";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -35,6 +31,14 @@ const HomeStack = () => {
       <Stack.Screen name="SinglePage" component={SinglePage} />
       {/* secondary (uses {navigation} object)*/}
       {/* <Stack.Screen name="Posts" component={Posts} /> */}
+    </Stack.Navigator>
+  );
+};
+
+const AddPostStack = () => {
+  return (
+    <Stack.Navigator /*headerMode="none"*/ initialRouteName="">
+      <Stack.Screen name="Add Post" component={AddPost} />
     </Stack.Navigator>
   );
 };
@@ -98,7 +102,7 @@ export default function Navigation() {
         />
         <Tab.Screen
           name="AddPost"
-          component={AddPost}
+          component={AddPostStack}
           options={{
             tabBarLabel: "AddPost",
             tabBarIcon: ({ color, size }) => (

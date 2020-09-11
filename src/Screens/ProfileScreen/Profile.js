@@ -158,15 +158,14 @@ class Profile extends Component {
 
               <TouchableOpacity
                 style={styles.profileMenu_item}
-                onPress={() => {
-                  // this.props.navigation.navigate("Settings");
-                  AsyncStorage.removeItem("auth-token");
+                onPress={async () => {
+                  await AsyncStorage.removeItem("auth-token");
                   this.props.navigation.replace("Login");
                 }}
               >
                 <View style={styles.profileMenu_item_heading}>
                   <Text style={styles.profileMenu_item_heading_text}>
-                    Settings (sign out)
+                    Settings {" > "} Log Out
                   </Text>
                 </View>
                 <View

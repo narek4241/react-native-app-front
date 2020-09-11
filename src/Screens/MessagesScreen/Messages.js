@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 const Messages = () => (
   <View style={[styles.container, styles.centerFlex]}>
-    <Text>Messages.js</Text>
+    <Text>Messages (soon)</Text>
   </View>
 );
 

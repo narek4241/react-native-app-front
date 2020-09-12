@@ -1,4 +1,3 @@
-// #task (like in ProfileMenu) turn 'class component back to 'function component (for mastering)
 import React, { Component } from "react";
 import {
   StyleSheet,

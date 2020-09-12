@@ -1,4 +1,4 @@
-// #task change styles.NAMES (source: singlePage) (PROVIDE)
+// #task adapt component into Guest.js, source: Account.js (some from SinglePage.js) #DUPLICATE
 import React, { Component } from "react";
 import {
   View,
@@ -8,22 +8,24 @@ import {
   ActivityIndicator,
   AsyncStorage,
 } from "react-native";
-import Posts from "../../HomeScreen/Posts/Posts";
+import Posts from "../../Posts";
 
-class Account extends Component {
+class Guest extends Component {
   constructor(props) {
     super(props);
   }
   state = {
+    userId: this.props.route.params.userId,
+
     accountDetails: {},
     accountPosts: [],
     isLoading: true,
     isLoadingPosts: true,
   };
 
-  fetchAccountDetails = async () => {
+  fetchAccountDetails = async (userId) => {
     const fetchAccountDetailsData = await fetch(
-      "https://skelet-rest-api.herokuapp.com/auth/profile",
+      `https://skelet-rest-api.herokuapp.com/auth/profile/user/${userId}`,
       {
         method: "GET",
         headers: {
@@ -40,9 +42,9 @@ class Account extends Component {
     });
   };
 
-  fetchAccountPosts = async () => {
+  fetchAccountPosts = async (userId) => {
     const fetchAccountPostsData = await fetch(
-      "https://skelet-rest-api.herokuapp.com/posts/profile",
+      `https://skelet-rest-api.herokuapp.com/posts/user/${userId}`,
       {
         method: "GET",
         headers: {
@@ -59,8 +61,8 @@ class Account extends Component {
   };
 
   componentDidMount() {
-    this.fetchAccountDetails();
-    this.fetchAccountPosts();
+    this.fetchAccountDetails(this.state.userId);
+    this.fetchAccountPosts(this.state.userId);
   }
 
   render() {
@@ -70,6 +72,7 @@ class Account extends Component {
           <ActivityIndicator size="small" color="#0000ff" />
         ) : (
           <View style={styles.account_container}>
+            {/* {this.state.isLoading ? } */}
             <View style={styles.post_owner}>
               <View style={[styles.post_owner_avatar, styles.centerFlex]}>
                 <Image
@@ -109,7 +112,7 @@ class Account extends Component {
   }
 }
 
-export default Account;
+export default Guest;
 
 const styles = StyleSheet.create({
   centerFlex: {

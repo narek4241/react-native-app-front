@@ -15,6 +15,7 @@ const Posts = ({ data, navigation }) => {
         title={prod.title}
         currency={prod.currency}
         navigation={navigation}
+        userId={prod.userId}
       ></Post>
     );
   });
@@ -43,7 +44,5 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
-    // alignItems: "baseline", // ok?rm
-    // justifyContent: "space-around", // ok?rm
   },
 });

@@ -6,6 +6,8 @@ import {
   Text,
   ScrollView,
   ActivityIndicator,
+  TouchableOpacity,
+  Linking,
 } from "react-native";
 import Posts from "../Posts";
 
@@ -16,7 +18,9 @@ class SinglePage extends Component {
   state = {
     // got from Post.js (when navigating to here)
     postId: this.props.route.params.postId,
+    userId: this.props.route.params.userId,
     singlePostData: {},
+    postOwnerDetails: {},
     recommendedPostsData: [],
     isLoading: true,
     isLoadingRecPosts: true,
@@ -82,12 +86,22 @@ class SinglePage extends Component {
           <ScrollView style={styles.container_post}>
             <View style={styles.post_images}>
               {/* #task add slider here*/}
-              <Image
-                style={styles.post_images_image}
-                source={{
-                  uri: this.state.singlePostData.imgUrl,
-                }}
-              ></Image>
+              {this.state.singlePostData.imgUrl ? (
+                <Image
+                  style={styles.post_images_image}
+                  source={{
+                    uri: this.state.singlePostData.imgUrl,
+                  }}
+                ></Image>
+              ) : (
+                <Image
+                  style={styles.post_images_image_default}
+                  source={{
+                    uri:
+                      "https://res.cloudinary.com/dgzlcuh8j/image/upload/v1597252820/picture-icon_hq0jhe.png",
+                  }}
+                />
+              )}
             </View>
 
             <View style={styles.post_header}>
@@ -158,24 +172,51 @@ class SinglePage extends Component {
               </Text>
             </View>
 
-            <View style={styles.post_owner}>
-              <View style={[styles.post_owner_avatar, styles.centerFlex]}>
-                <Image
-                  style={styles.post_owner_avatar_image}
-                  source={{
-                    uri:
-                      "https://res.cloudinary.com/dgzlcuh8j/image/upload/v1596209154/avatar_oxcztw.png",
-                  }}
-                ></Image>
-              </View>
-              <View style={[styles.post_owner_firstname, styles.centerFlex]}>
-                <Text style={styles.post_owner_firstname_text}>Name</Text>
-              </View>
-              <View style={[styles.post_owner_date, styles.centerFlex]}>
-                <Text style={styles.post_owner_date_text}>
-                  On Skelet since Date
-                </Text>
-              </View>
+            <View style={[styles.post_owner, styles.centerFlex]}>
+              <TouchableOpacity
+                style={styles.post_owner_button}
+                onPress={() => {
+                  this.props.navigation.navigate("Guest", {
+                    userId: this.state.userId._id,
+                  });
+                }}
+              >
+                <View style={styles.post_owner_content}>
+                  <View style={[styles.post_owner_avatar, styles.centerFlex]}>
+                    <Image
+                      style={styles.post_owner_avatar_image}
+                      source={{
+                        uri:
+                          "https://res.cloudinary.com/dgzlcuh8j/image/upload/v1596209154/avatar_oxcztw.png",
+                      }}
+                    ></Image>
+                  </View>
+                  <View
+                    style={[styles.post_owner_firstname, styles.centerFlex]}
+                  >
+                    <Text style={styles.post_owner_firstname_text}>
+                      {this.state.userId.firstname}
+                    </Text>
+                  </View>
+                  <View style={[styles.post_owner_date, styles.centerFlex]}>
+                    <Text style={styles.post_owner_date_text}>
+                      On Skelet since {this.state.userId.date}
+                    </Text>
+                  </View>
+                  <View style={[styles.post_owner_contact, styles.centerFlex]}>
+                    <TouchableOpacity
+                      style={styles.post_owner_contact_button}
+                      onPress={() => {
+                        Linking.openURL(`tel:${this.state.userId.contact}`);
+                      }}
+                    >
+                      <Text style={styles.post_owner_contact_button_text}>
+                        Call
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableOpacity>
             </View>
 
             <View style={styles.post_similarPosts}>
@@ -226,6 +267,11 @@ const styles = StyleSheet.create({
     height: 250,
   },
   post_images_image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+  },
+  post_images_image_default: {
     width: "100%",
     height: "100%",
     resizeMode: "contain",
@@ -345,11 +391,21 @@ const styles = StyleSheet.create({
   },
 
   post_owner: {
-    height: 150,
+    height: 200,
     backgroundColor: "#fff",
   },
+
+  post_owner_button: {
+    width: "50%",
+  },
+
+  post_owner_content: {
+    width: "100%",
+    height: "100%",
+  },
+
   post_owner_avatar: {
-    height: "60%",
+    height: "40%",
   },
   post_owner_avatar_image: {
     width: "100%",
@@ -363,11 +419,31 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   post_owner_date: {
-    height: "25%",
+    height: "20%",
   },
   post_owner_date_text: {
     fontSize: 14,
     color: "grey",
+    textAlign: "center",
+  },
+
+  post_owner_contact: {
+    height: "25%",
+  },
+  post_owner_contact_button: {
+    width: "80%",
+    height: "70%",
+    backgroundColor: "#00b300",
+    borderRadius: 20,
+  },
+  post_owner_contact_button_text: {
+    width: "100%",
+    height: "100%",
+    textAlign: "center",
+    textAlignVertical: "center",
+    fontSize: 16,
+    color: "#fff",
+    textTransform: "capitalize",
   },
 
   post_similarPosts: {

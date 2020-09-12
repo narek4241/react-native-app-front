@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 // use 'imp' tricky shorthand
 
-const Post = ({ id, imgUrl, price, currency, title, navigation }) => {
+const Post = ({ id, imgUrl, price, currency, title, navigation, userId }) => {
   let priceAndCurrency;
   if (currency == "usd") {
     priceAndCurrency = "$" + price;
@@ -20,6 +20,7 @@ const Post = ({ id, imgUrl, price, currency, title, navigation }) => {
         onPress={() => {
           navigation.navigate("Single Page", {
             postId: id,
+            userId: userId,
           });
         }}
       >
@@ -99,7 +100,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingLeft: 8,
     color: "#222",
-    // #trash centerFlex+fs // isNorm ? rmComment
     fontSize: 16,
     fontWeight: "700",
   },
@@ -112,6 +112,5 @@ const styles = StyleSheet.create({
     width: 154,
     paddingVertical: 6,
     paddingLeft: 6,
-    // #trash needs centerFlex+fs // isNorm ? rmComment
   },
 });

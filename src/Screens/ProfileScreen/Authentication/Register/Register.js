@@ -81,9 +81,9 @@ class Register extends Component {
             password: "",
             confPassword: "",
           }}
-          validationSchema={RegisterSchema}
+          // validationSchema={RegisterSchema}
           onSubmit={(values, actions) => {
-            actions.resetForm();
+            // actions.resetForm();
             this.fetchRegister(values);
           }}
         >
@@ -185,126 +185,6 @@ class Register extends Component {
     );
   }
 }
-
-const Register2 = () => {
-  return (
-    <View style={[styles.container]}>
-      <View style={[styles.registerLogo, styles.centerFlex]}>
-        <Image
-          style={styles.registerLogo_image}
-          source={{
-            uri:
-              "https://res.cloudinary.com/dgzlcuh8j/image/upload/v1596690168/main-logo_rpzuag.png",
-          }}
-        />
-      </View>
-      <Formik
-        initialValues={{
-          firstname: "",
-          lastname: "",
-          contact: "",
-          email: "",
-          password: "",
-          confPassword: "",
-        }}
-        validationSchema={RegisterSchema}
-        onSubmit={(values, actions) => {
-          actions.resetForm();
-          console.log(values);
-        }}
-      >
-        {(props) => (
-          <View style={styles.registerInputs}>
-            <TextInput
-              style={[
-                styles.registerInputs_input,
-                styles.registerInputs_firstname,
-              ]}
-              onChangeText={props.handleChange("firstname")}
-              onBlur={props.handleBlur("firstname")}
-              values={props.values.firstname}
-              placeholder="Firstname" //
-            />
-            {/* <Text>{props.errors.Firstname}</Text> */}
-
-            <TextInput
-              style={[
-                styles.registerInputs_input,
-                styles.registerInputs_lastname,
-              ]}
-              onChangeText={props.handleChange("lastname")}
-              onBlur={props.handleBlur("lastname")}
-              values={props.values.lastname}
-              placeholder="Lastname" //
-            />
-            {/* <Text>{props.errors.fullname}</Text> */}
-
-            <TextInput
-              style={[
-                styles.registerInputs_input,
-                styles.registerInputs_contact,
-              ]}
-              onChangeText={props.handleChange("contact")}
-              onBlur={props.handleBlur("contact")}
-              values={props.values.contact}
-              placeholder="Contact" //
-            />
-            {/* <Text>{props.errors.fullname}</Text> */}
-
-            <TextInput
-              style={[styles.registerInputs_input, styles.registerInputs_email]}
-              onChangeText={props.handleChange("email")}
-              onBlur={props.handleBlur("email")}
-              values={props.values.email}
-              placeholder="Email" //
-            />
-            {/* <Text>{props.errors.email}</Text> */}
-
-            <TextInput
-              style={[
-                styles.registerInputs_input,
-                styles.registerInputs_password,
-              ]}
-              onChangeText={props.handleChange("password")}
-              onBlur={props.handleBlur("password")}
-              values={props.values.password}
-              placeholder="Password" //
-            />
-            {/* <Text>{props.errors.password}</Text> */}
-
-            <TextInput
-              style={[
-                styles.registerInputs_input,
-                styles.registerInputs_confPassword,
-              ]}
-              onChangeText={props.handleChange("confPassword")}
-              onBlur={props.handleBlur("confPassword")}
-              values={props.values.confPassword}
-              placeholder="Confirm Password" //
-            />
-            {/* <Text>{props.errors.confPassword}</Text> */}
-
-            <View style={styles.registerTerms}>
-              <Text style={styles.registerTerms_text}>
-                I agree to the Posting Rules and SkeletInc Terms of Service
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={[
-                styles.registerInputs_input,
-                styles.registerInputs_submit,
-                styles.centerFlex,
-              ]}
-              onPress={() => props.handleSubmit()}
-            >
-              <Text style={styles.registerInputs_submit_text}>register</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </Formik>
-    </View>
-  );
-};
 
 export default Register;
 

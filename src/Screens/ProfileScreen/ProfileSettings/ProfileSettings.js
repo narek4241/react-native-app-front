@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, Text, AsyncStorage } from "react-native";
+import { View, Button, AsyncStorage } from "react-native";
 
 const ProfileSettings = ({ navigation }) => {
   return (
@@ -7,10 +7,8 @@ const ProfileSettings = ({ navigation }) => {
       <View>
         <Button
           onPress={() => {
-            // navigation.popToTop('Login');
-            // navigation.popToTop("Login");
             AsyncStorage.removeItem("auth-token");
-            navigation.replace('Login');
+            navigation.replace("Login");
           }}
           title={"log out"}
         ></Button>

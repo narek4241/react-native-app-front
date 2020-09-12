@@ -1,5 +1,3 @@
-// #check_task ok?rm <npm i 'react-navigation'> uninstall
-// RESEARCH make 'internet to 'my;
 import React from "react";
 import { StyleSheet } from "react-native";
 // nav
@@ -23,6 +21,7 @@ import ProfileSettings from "../Screens/ProfileScreen/ProfileSettings/ProfileSet
 import SinglePage from "../Screens/HomeScreen/Posts/SinglePage/SinglePage";
 import Posts from "../Screens/HomeScreen/Posts/Posts";
 import Search from "../Screens/HomeScreen/Search/Search";
+import Guest from "../Screens/HomeScreen/Posts/SinglePage/Guest/Guest";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -32,6 +31,7 @@ const HomeStack = () => {
     <Stack.Navigator /*headerMode="none"*/ initialRouteName="">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Single Page" component={SinglePage} />
+      <Stack.Screen name="Guest" component={Guest} />
       {/* secondary (uses {navigation} object) */}
       <Stack.Screen name="Posts" component={Posts} />
       <Stack.Screen name="Search" component={Search} />
@@ -72,6 +72,7 @@ export default function Navigation() {
         style={styles.container}
         initialRouteName="Home"
         activeColor="blue"
+        swipeEnabled="true"
         inactiveColor="grey"
         barStyle={{ backgroundColor: "#ebecec" }}
         labeled={false}

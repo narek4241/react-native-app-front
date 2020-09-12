@@ -4,7 +4,6 @@ import {
   View,
   ActivityIndicator,
   TextInput,
-  Text,
   Image,
   TouchableOpacity,
 } from "react-native";
@@ -18,7 +17,6 @@ class Search extends Component {
   state = {
     fileredPostsData: [],
     isLoading: true,
-    // nav: {},
   };
 
   fetchPosts = async () => {
@@ -28,12 +26,9 @@ class Search extends Component {
       );
 
       const data = await fetchPostsData.json();
-
-      // const navigation = useNavigation(); // overloads ok?rm
       this.setState({
         fileredPostsData: data,
         isLoading: false,
-        // nav: navigation,
       });
     } catch (error) {
       console.log(error);
@@ -158,7 +153,6 @@ const styles = StyleSheet.create({
   search_inputs: {
     width: "100%",
     height: "10%",
-    // backgroundColor: "grey",
     backgroundColor: "#ebecec",
   },
 

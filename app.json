@@ -1,26 +1,18 @@
 {
   "expo": {
-    "name": "react-native-app-front",
-    "slug": "react-native-app-front",
-    "version": "1.0.0",
-    "orientation": "portrait",
+    "name": "Skelet",
     "icon": "./assets/icon.png",
+    "version": "1.0.0",
+    "slug": "your-app-slug",
+    "orientation": "portrait",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "android": {
+      "package": "com.yourcompany.yourappname",
+      "versionCode": 1
     }
   }
 }
